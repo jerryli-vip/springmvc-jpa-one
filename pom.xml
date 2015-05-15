@@ -2,14 +2,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.pactera.web</groupId>
-	<artifactId>springmvc-jpa-two</artifactId>
+	<artifactId>springmvc-jpa-one</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springmvc-jpa-two Maven Webapp</name>
+	<name>springmvc-jpa-one Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<build>
-		<finalName>springmvc-jpa-two</finalName>
+		<finalName>springmvc-jpa-one</finalName>
 		<defaultGoal>compile</defaultGoal>
 		<plugins>
 			<plugin>
