@@ -116,7 +116,7 @@ public class DepartmentController extends BaseController {
 
 		ModelAndView mav = new ModelAndView("deptEdit");
 
-		Department dept = deptService.findById(deptno);
+		Department dept = deptService.findById(Department.class, deptno);
 
 		mav.addObject("department", dept);
 
@@ -141,7 +141,7 @@ public class DepartmentController extends BaseController {
 			return mav;
 		}
 
-		deptService.save(dept);
+		deptService.update(dept);
 
 		mav = new ModelAndView("redirect:list");
 
@@ -156,7 +156,7 @@ public class DepartmentController extends BaseController {
 
 		ModelAndView mav = null;
 
-		deptService.delete(deptno);
+		deptService.delete(Department.class, deptno);
 
 		mav = new ModelAndView("redirect:list");
 

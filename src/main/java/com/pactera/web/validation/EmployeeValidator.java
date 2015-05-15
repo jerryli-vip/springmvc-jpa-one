@@ -39,16 +39,18 @@ public class EmployeeValidator implements Validator {
 		}
 
 		Pattern datePattern = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
-		if (!StringUtils.isEmpty(hireDateStr) && !datePattern.matcher(hireDateStr).find()) {
-			errors.rejectValue("hireDateStr", "hire.date.format.error");
-		} else {
-			try {
-				Date hireDate = DateUtil.parse(hireDateStr, Constant.DATE_FORMAT);
-				if (hireDate != null && hireDate.after(new Date())) {
-					errors.rejectValue("hireDateStr", "hireDate.can.not.furture.day");
+		if (!StringUtils.isEmpty(hireDateStr)) {
+			if (datePattern.matcher(hireDateStr).find()) {
+				try {
+					Date hireDate = DateUtil.parse(hireDateStr, Constant.DATE_FORMAT);
+					if (hireDate != null && hireDate.after(new Date())) {
+						errors.rejectValue("hireDateStr", "hireDate.can.not.furture.day");
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
-			} catch (ParseException e) {
-				e.printStackTrace();
+			} else {
+				errors.rejectValue("hireDateStr", "hire.date.format.error");
 			}
 		}
 

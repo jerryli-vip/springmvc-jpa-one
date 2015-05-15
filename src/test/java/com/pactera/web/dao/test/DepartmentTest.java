@@ -54,31 +54,30 @@ public class DepartmentTest extends BaseJunit4Test {
 
 		dept.setEmployees(emps);
 
-		Department obj = null;
+		boolean b = false;
 		try {
-			obj = deptService.save(dept);
+			b = deptService.save(dept);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
 
-		Assert.notNull(obj);
+		Assert.isTrue(b);
 	}
 
 	@Test
 	@Transactional
 	@Rollback(false)
 	public void testUpdate() {
-		Department obj = null;
+		boolean b = false;
 		try {
-			Department dept = deptService.findById(150);
+			Department dept = deptService.findById(Department.class, 150);
 			dept.setDeptName("Test");
-			obj = deptService.save(dept);
+			b = deptService.save(dept);
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
 
-		Assert.notNull(obj);
-		Assert.isTrue(obj.getDeptName().equals("Test"));
+		Assert.isTrue(b);
 	}
 
 	@Test

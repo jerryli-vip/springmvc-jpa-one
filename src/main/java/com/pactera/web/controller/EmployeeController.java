@@ -147,7 +147,7 @@ public class EmployeeController extends BaseController {
 
 		ModelAndView mav = new ModelAndView("empEdit");
 
-		Employee emp = empService.findById(empno);
+		Employee emp = empService.findById(Employee.class, empno);
 		emp.setHireDateStr(DateUtil.format(emp.getHiredate(), Constant.DATE_FORMAT));
 		mav.addObject("employee", emp);
 
@@ -184,7 +184,7 @@ public class EmployeeController extends BaseController {
 			log.info("input hire date format error", e);
 			throw new ServiceException(e.getMessage());
 		}
-		empService.save(emp);
+		empService.update(emp);
 
 		mav = new ModelAndView("redirect:list");
 
@@ -199,7 +199,7 @@ public class EmployeeController extends BaseController {
 
 		ModelAndView mav = null;
 
-		empService.delete(empno);
+		empService.delete(Employee.class, empno);
 
 		mav = new ModelAndView("redirect:list");
 

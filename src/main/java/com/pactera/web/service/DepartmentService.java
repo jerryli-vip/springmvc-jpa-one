@@ -6,13 +6,7 @@ import com.pactera.web.common.Pagination;
 import com.pactera.web.exception.ServiceException;
 import com.pactera.web.model.Department;
 
-public interface DepartmentService {
-
-	public Department save(Department dept) throws ServiceException;
-
-	public void delete(Integer deptno) throws ServiceException;
-
-	public Department findById(Integer deptno) throws ServiceException;
+public interface DepartmentService extends BaseService<Department> {
 
 	public List<Department> findAll() throws ServiceException;
 

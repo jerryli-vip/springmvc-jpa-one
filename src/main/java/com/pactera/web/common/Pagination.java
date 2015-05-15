@@ -6,8 +6,8 @@ public class Pagination {
 	private int pageNo = 0;
 	private int pageCount = 0;
 
-	// private int startPos = 0;
-	// private int endPos = 0;
+	private int startPos = 0;
+	private int endPos = 0;
 
 	public int getRecordCount() {
 		return recordCount;
@@ -17,19 +17,19 @@ public class Pagination {
 		this.recordCount = recordCount;
 	}
 
-//	public int getStartPos() {
-//		final int pageSize = this.getPageSize();
-//		final int pageNo = this.getPageNo();
-//		int startPos = pageSize * (pageNo - 1);
-//		return startPos < 0 ? 0 : startPos;
-//	}
-//
-//	public int getEndPos() {
-//		final int pageSize = this.getPageSize();
-//		final int pageNo = this.getPageNo();
-//		int endPos = pageSize * pageNo;
-//		return endPos >= recordCount ? recordCount : endPos;
-//	}
+	public int getStartPos() {
+		final int pageSize = this.getPageSize();
+		final int pageNo = this.getPageNo();
+		int startPos = pageSize * (pageNo - 1);
+		return startPos < 0 ? 0 : startPos;
+	}
+
+	public int getEndPos() {
+		final int pageSize = this.getPageSize();
+		final int pageNo = this.getPageNo();
+		int endPos = pageSize * pageNo;
+		return endPos >= recordCount ? recordCount : endPos;
+	}
 
 	public int getPageCount() {
 		return recordCount % pageSize > 0 ? recordCount / pageSize + 1 : recordCount / pageSize;
@@ -57,6 +57,6 @@ public class Pagination {
 
 	public String toString() {
 		return "[recordCount = " + recordCount + ", pageCount = " + pageCount + ", pageSzie = " + pageSize
-				+ ", pageNo = " + pageNo + "]";
+				+ ", startPos = " + startPos + ", endPos = " + endPos + ", pageNo = " + pageNo + "]";
 	}
 }
