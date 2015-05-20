@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mv.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		">
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="locations">
+	      <list>
+	          <value>classpath:config.properties</value>
+	          <value>classpath:db.properties</value>
+	      </list>
+	    </property>
+	</bean>
+
+	<!-- 数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${db.driver}" />
+		<property name="url" value="${db.url}" />
+		<property name="username" value="${db.username}" />
+		<property name="password" value="${db.password}" />
+	</bean>
+	<!-- jpa Entity Factory 配置 -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="persistenceUnitName" value="persistenceUnit" />
+		<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
+		<property name="persistenceProvider" ref="persistenceProvider" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 用于指定持久化实现厂商类 -->
+	<bean id="persistenceProvider" class="org.hibernate.ejb.HibernatePersistence" />
+	<!--事务管理器配置-->
+	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	<!-- 配置 Annotation 驱动，定义事务 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+	
+</beans>

@@ -14,11 +14,15 @@
             http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd              
             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<import resource="springmvc-jpa.xml"/>
 
+	<!-- 默认的注解映射的支持 -->
 	<mvc:annotation-driven />
 	
 	<context:component-scan base-package="com.pactera.web" />
 
+	<!-- 视图解释类 -->
 	<bean
 		id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -32,6 +36,7 @@
 
 	<!-- <bean id="exceptionResolver" class="com.pactera.web.exception.MyHandlerExceptionResolver"/> -->
 
+	<!-- 拦截器 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/dept/showCreate" />
@@ -45,40 +50,6 @@
 		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 	
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-	    <property name="locations">
-	      <list>
-	          <value>classpath:db.properties</value>
-	          <value>classpath:config.properties</value>
-	      </list>
-	    </property>
-	</bean>
-
-	<!-- data source and transaction -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="${db.driver}" />
-		<property name="url" value="${db.url}" />
-		<property name="username" value="${db.username}" />
-		<property name="password" value="${db.password}" />
-	</bean>
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="persistenceUnitName" value="persistenceUnit" />
-		<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
-		<property name="persistenceProvider" ref="persistenceProvider" />
-		<property name="jpaProperties">
-			<props>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.format_sql">false</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
-			</props>
-		</property>
-	</bean>
-	<bean id="persistenceProvider" class="org.hibernate.ejb.HibernatePersistence" />
-	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
-	<tx:annotation-driven transaction-manager="txManager" />
+	
 	
 </beans>

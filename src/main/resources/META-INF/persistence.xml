@@ -4,5 +4,20 @@
 
 	<persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL" />
 
+	<!-- <persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<properties>
+			<property name="hibernate.connection.provider_class" value="org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider" />
+			<property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver" />
+			<property name="hibernate.connection.url" value="jdbc:oracle:thin:@192.168.26.135:1521:orcl" />
+			<property name="hibernate.connection.username" value="jerry" />
+			<property name="hibernate.connection.password" value="welcome1" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="false"/>
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.enable_lazy_load_no_trans" value="true"/>
+		</properties>
+	</persistence-unit> -->
+
 </persistence>
  
